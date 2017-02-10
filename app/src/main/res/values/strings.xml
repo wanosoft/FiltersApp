@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">FiltersApp</string>
+    <string-array name="filtros">
+        <item></item>
+        <item>Escala de Grises</item>
+        <item>Invertir</item>
+        <item>Aumentar Brillo</item>
+    </string-array>
+</resources>
