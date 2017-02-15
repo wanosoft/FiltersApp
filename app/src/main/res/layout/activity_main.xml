@@ -11,53 +11,11 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.wanosoft.filtersapp.MainActivity">
 
-    <ScrollView
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentEnd="true"
+        android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_above="@+id/grey">
-
-    </ScrollView>
-
-    <Button
-        android:text="Reset"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/boton"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true" />
-
-    <Button
-        android:text="Grey"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/grey"
-        android:layout_alignParentBottom="true"
-        android:layout_toEndOf="@+id/boton" />
-
-    <Button
-        android:text="Inverse"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_toEndOf="@+id/grey"
-        android:id="@+id/inverse" />
-
-    <Button
-        android:text="Brillo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/brillo"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true" />
-
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginEnd="14dp">
+        android:layout_alignParentEnd="true">
 
         <ImageView
             android:layout_width="match_parent"
@@ -72,6 +30,23 @@
             android:layout_width="match_parent"
             android:layout_height="43dp"
             android:id="@+id/spinner" />
-    </FrameLayout>
+    </RelativeLayout>
+
+    <SeekBar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/seekBar"
+        android:layout_above="@+id/boton"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="77dp" />
+
+    <Button
+        android:text="Reset"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/boton"
+        android:layout_marginBottom="30dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>

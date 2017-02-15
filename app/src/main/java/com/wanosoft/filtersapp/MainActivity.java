@@ -9,47 +9,31 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.SeekBar;
 import android.widget.Spinner;
+import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+import static com.wanosoft.filtersapp.R.id.seekBar;
+
+public class MainActivity extends AppCompatActivity {
 
     private ImageView imageView;
     private Filtros filtros;
     private Button reset, grey, inverse, brillo;
     private Spinner spinner;
+    private SeekBar seekBar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         reset = (Button) findViewById(R.id.boton);
-        grey = (Button) findViewById(R.id.grey);
-        inverse = (Button) findViewById(R.id.inverse);
-        brillo = (Button) findViewById(R.id.brillo);
         spinner = (Spinner) findViewById(R.id.spinner);
-
-
-
+        seekBar = (SeekBar) findViewById(R.id.seekBar);
         imageView=(ImageView) findViewById(R.id.imagen);
+
+        seekBar.setEnabled(false);
         filtros=new Filtros();
-
-        grey.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                BitmapDrawable bitmapDrawable=(BitmapDrawable) imageView.getDrawable();
-                Bitmap bmp=filtros.greyScale(bitmapDrawable.getBitmap());
-                imageView.setImageBitmap(bmp);
-            }
-        });
-
-        inverse.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                BitmapDrawable bitmapDrawable=(BitmapDrawable) imageView.getDrawable();
-                Bitmap bmp=filtros.inverse(bitmapDrawable.getBitmap());
-                imageView.setImageBitmap(bmp);
-            }
-        });
 
         reset.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,24 +43,35 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             }
         });
 
-        brillo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+
+        spinner.setOnItemSelectedListener(onItemSelectedListener);
+    }
+
+    Spinner.OnItemSelectedListener onItemSelectedListener=new AdapterView.OnItemSelectedListener() {
+        @Override
+        public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+            if (i==1){
+                seekBar.setEnabled(false);
+                BitmapDrawable bitmapDrawable=(BitmapDrawable) imageView.getDrawable();
+                Bitmap bmp=filtros.greyScale(bitmapDrawable.getBitmap());
+                imageView.setImageBitmap(bmp);
+            } else if (i==2){
+                seekBar.setEnabled(false);
+                BitmapDrawable bitmapDrawable=(BitmapDrawable) imageView.getDrawable();
+                Bitmap bmp=filtros.inverse(bitmapDrawable.getBitmap());
+                imageView.setImageBitmap(bmp);
+            } else if (i==3){
                 BitmapDrawable bitmapDrawable=(BitmapDrawable) imageView.getDrawable();
                 Bitmap bmp=filtros.brillo(bitmapDrawable.getBitmap(),55);
                 imageView.setImageBitmap(bmp);
+                seekBar.setEnabled(true);
             }
-        });
+        }
 
-    }
+        @Override
+        public void onNothingSelected(AdapterView<?> adapterView) {
 
-    @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        
-    }
+        }
+    };
 
-    @Override
-    public void onNothingSelected(AdapterView<?> parent) {
-
-    }
 }
