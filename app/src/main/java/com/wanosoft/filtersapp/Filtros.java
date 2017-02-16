@@ -131,4 +131,76 @@ public class Filtros {
         //retorna el bitmap final para ser renderizado por imageView
         return bmp;
     }
+
+    public Bitmap edgeDetect(Bitmap bitmap, int umbral){
+        Bitmap bmp=Bitmap.createBitmap(bitmap.getWidth(),bitmap.getHeight(),bitmap.getConfig());
+
+        int pixel=0;
+        //Declaración de las variables de distancia
+        int D1=0;
+        int D2=0;
+        //se declaran las variables a utilizar para vaciar el pixel y los canales
+        int c1=0;
+        int c2=0;
+        int c3=0;
+        //C1
+        int r1=0;
+        int g1=0;
+        int b1=0;
+        int a1=0;
+        //C2
+        int r2=0;
+        int g2=0;
+        int b2=0;
+        int a2=0;
+        //C3
+        int r3=0;
+        int g3=0;
+        int b3=0;
+        int a3=0;
+        //se declara la variable grey donde de descargara la sumatoria de los pixeles
+        int grey=0;
+        //se recorre la imagen de origen ancho por alto
+        for (int x=0;x<bitmap.getWidth();x++) {
+            for (int y = 0; y < bitmap.getHeight(); y++) {
+                // se obtiene el pixel segun las coordenadas
+                c1 = bitmap.getPixel(x, y);
+                c2 = bitmap.getPixel(x, y + 1);
+                c3 = bitmap.getPixel(x, y + 2);
+                //se obtienen los canales del pixel por medio de corrimiento
+
+                r1 = (c1 >> 16) & 0xff;
+                g1 = (c1 >> 8) & 0xff;
+                b1 = c1 & 0xff;
+
+
+                r2 = (c2 >> 16) & 0xff;
+                g2 = (c2 >> 8) & 0xff;
+                b2 = c2 & 0xff;
+
+
+                r3 = (c3 >> 16) & 0xff;
+                g3 = (c3 >> 8) & 0xff;
+                b3 = c3 & 0xff;
+
+                //se realiza la operacion por pixel
+                D1 = (int) Math.pow(r1 - r2, 2.0) + (int) Math.pow(g1 - g2, 2.0) + (int) Math.pow(b1 - b2, 2.0);
+                D1 = (int) Math.sqrt(D1);
+                D2 = (int) Math.pow(r1 - r3, 2.0) + (int) Math.pow(g1 - g3, 2.0) + (int) Math.pow(b1 - b3, 2.0);
+                D2 = (int) Math.sqrt(D2);
+
+                if (D1 >= umbral || D2 >= umbral) {
+                    D1 = 255;
+                } else {
+                    D1 = 0;
+                }
+                //se vuelve a codificar el pixel
+                pixel = D1;
+                //se agrega el pixel en el bitmap destino
+                bmp.setPixel(x, y, pixel);
+            }
+        }
+        //retorna el bitmap final para ser renderizado por imageView
+        return bmp;
+    }
 }

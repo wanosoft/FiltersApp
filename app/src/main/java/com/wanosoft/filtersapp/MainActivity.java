@@ -6,14 +6,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.Spinner;
-import android.widget.Toast;
-
-import static com.wanosoft.filtersapp.R.id.seekBar;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -40,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 imageView.setImageBitmap(null);
                 imageView.setImageResource(R.drawable.zedicon);
+                seekBar.setEnabled(false);
             }
         });
 
@@ -63,6 +60,11 @@ public class MainActivity extends AppCompatActivity {
             } else if (i==3){
                 BitmapDrawable bitmapDrawable=(BitmapDrawable) imageView.getDrawable();
                 Bitmap bmp=filtros.brillo(bitmapDrawable.getBitmap(),55);
+                imageView.setImageBitmap(bmp);
+                seekBar.setEnabled(true);
+            } else if (i==4){
+                BitmapDrawable bitmapDrawable=(BitmapDrawable) imageView.getDrawable();
+                Bitmap bmp=filtros.edgeDetect(bitmapDrawable.getBitmap(),55);
                 imageView.setImageBitmap(bmp);
                 seekBar.setEnabled(true);
             }
