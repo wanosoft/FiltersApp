@@ -1,5 +1,6 @@
 package com.wanosoft.filtersapp;
 import android.graphics.Bitmap;
+import android.util.Log;
 
 /**
  * Created by davic on 03/02/17.
@@ -161,24 +162,27 @@ public class Filtros {
         //se declara la variable grey donde de descargara la sumatoria de los pixeles
         int grey=0;
         //se recorre la imagen de origen ancho por alto
-        for (int x=0;x<bitmap.getWidth();x++) {
-            for (int y = 0; y < bitmap.getHeight(); y++) {
+        for (int x=0;x<bitmap.getWidth()-2;x++) {
+            for (int y = 0; y < bitmap.getHeight()-2; y++) {
                 // se obtiene el pixel segun las coordenadas
+
                 c1 = bitmap.getPixel(x, y);
-                c2 = bitmap.getPixel(x, y + 1);
-                c3 = bitmap.getPixel(x, y + 2);
+                c2 = bitmap.getPixel(x+1, y);
+                c3 = bitmap.getPixel(x, y+1);
+
                 //se obtienen los canales del pixel por medio de corrimiento
 
+                a1 = (c1 >>> 24) & 0xff;
                 r1 = (c1 >> 16) & 0xff;
                 g1 = (c1 >> 8) & 0xff;
                 b1 = c1 & 0xff;
 
-
+                a2 = (c2 >>> 24) & 0xff;
                 r2 = (c2 >> 16) & 0xff;
                 g2 = (c2 >> 8) & 0xff;
                 b2 = c2 & 0xff;
 
-
+                a3 = (c3 >>> 24) & 0xff;
                 r3 = (c3 >> 16) & 0xff;
                 g3 = (c3 >> 8) & 0xff;
                 b3 = c3 & 0xff;
@@ -195,7 +199,7 @@ public class Filtros {
                     D1 = 0;
                 }
                 //se vuelve a codificar el pixel
-                pixel = D1;
+                pixel=((a1<<24)|(D1<<16)|(D1<<8)|D1);
                 //se agrega el pixel en el bitmap destino
                 bmp.setPixel(x, y, pixel);
             }
