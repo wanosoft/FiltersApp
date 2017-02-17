@@ -6,5 +6,7 @@
         <item>Invertir</item>
         <item>Aumentar Brillo</item>
         <item>Edge Detect</item>
+        <item>Contraste</item>
+        <item>Modificar RGB</item>
     </string-array>
 </resources>
