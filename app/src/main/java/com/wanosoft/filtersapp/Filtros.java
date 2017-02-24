@@ -1,6 +1,9 @@
 package com.wanosoft.filtersapp;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.util.Log;
+
+import java.io.ByteArrayOutputStream;
 
 /**
  * Created by davic on 03/02/17.
@@ -357,6 +360,43 @@ public class Filtros {
                 bmp.setPixel(x,y, pixel);
             }
         }
+        //retorna el bitmap final para ser renderizado por imageView
+        return bmp;
+    }
+
+    public Bitmap gamma(Bitmap bitmap){
+        Bitmap bmp=Bitmap.createBitmap(bitmap.getWidth(),bitmap.getHeight(),bitmap.getConfig());
+
+        int pixel=0;
+        int r=0;
+        int g=0;
+        int b=0;
+        int a=0;
+
+        for (int x=0;x<bitmap.getWidth();x++){
+            for(int y=0;y<bitmap.getHeight();y++){
+                // se obtiene el pixel segun las coordenadas
+                pixel=bitmap.getPixel(x,y);
+                //se obtienen los canales del pixel por medio de corrimiento
+                a= Color.alpha(pixel);
+                r= Color.red(pixel);
+                g= Color.green(pixel);
+                b= Color.blue(pixel);
+                //se realiza la operacion por pixel
+
+                //se agrega el pixel en el bitmap destino
+                bmp.setPixel(x,y, Color.argb(Color.alpha(pixel),r,g,b));
+            }
+        }
+        //retorna el bitmap final para ser renderizado por imageView
+        return bmp;
+    }
+
+    public Bitmap rotar(Bitmap bitmap){
+        Bitmap bmp=Bitmap.createBitmap(bitmap.getWidth(),bitmap.getHeight(),bitmap.getConfig());
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        bmp.compress(Bitmap.CompressFormat.PNG, 100, stream);
+        byte[] byteArray = stream.toByteArray();
         //retorna el bitmap final para ser renderizado por imageView
         return bmp;
     }

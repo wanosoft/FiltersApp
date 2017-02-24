@@ -9,5 +9,6 @@
         <item>Contraste</item>
         <item>Modificar RGB</item>
         <item>Gamma</item>
+        <item>Rotar</item>
     </string-array>
 </resources>

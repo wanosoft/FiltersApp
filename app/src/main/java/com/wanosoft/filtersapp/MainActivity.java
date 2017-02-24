@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 imageView.setImageBitmap(null);
                 imageView.setImageResource(R.drawable.zedicon);
-                if (estado==4||estado==3||estado==5||estado==6||estado==7){
+                if (estado==4||estado==3||estado==5||estado==6||estado==8){
                     apply.setEnabled(true);
                     seekBarR.setEnabled(true);
                 } else {
@@ -80,6 +80,11 @@ public class MainActivity extends AppCompatActivity {
                     imageView.setImageBitmap(bmp);
                 } else if (estado==7){
                     //Gamma
+                    BitmapDrawable bitmapDrawable = (BitmapDrawable) imageView.getDrawable();
+                    Bitmap bmp = filtros.gamma(bitmapDrawable.getBitmap());
+                    imageView.setImageBitmap(bmp);
+                } else if (estado==8){
+                    //Rotar
                 }
             }
         });
@@ -137,11 +142,16 @@ public class MainActivity extends AppCompatActivity {
                 apply.setEnabled(true);
                 setState(i);
             } else if (i==7){
-                seekBarR.setEnabled(true);
+                seekBarR.setEnabled(false);
                 seekBarG.setEnabled(false);
                 seekBarB.setEnabled(false);
                 apply.setEnabled(true);
                 setState(i);
+            } else if (i==8){
+                seekBarR.setEnabled(false);
+                seekBarG.setEnabled(false);
+                seekBarB.setEnabled(false);
+                apply.setEnabled(true);
             }
         }
 
