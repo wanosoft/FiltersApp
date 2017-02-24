@@ -36,6 +36,8 @@ public class MainActivity extends AppCompatActivity {
         imageView=(ImageView) findViewById(R.id.imagen);
 
         seekBarR.setEnabled(false);
+        seekBarG.setEnabled(false);
+        seekBarB.setEnabled(false);
         filtros=new Filtros();
 
         reset.setOnClickListener(new View.OnClickListener() {
@@ -43,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 imageView.setImageBitmap(null);
                 imageView.setImageResource(R.drawable.zedicon);
-                if (estado==4||estado==3||estado==5){
+                if (estado==4||estado==3||estado==5||estado==6||estado==7){
                     apply.setEnabled(true);
                     seekBarR.setEnabled(true);
                 } else {
@@ -67,9 +69,17 @@ public class MainActivity extends AppCompatActivity {
                     Bitmap bmp = filtros.brillo(bitmapDrawable.getBitmap(), valueR);
                     imageView.setImageBitmap(bmp);
                 } else if (estado==5){
+                    //Contrast
                     BitmapDrawable bitmapDrawable = (BitmapDrawable) imageView.getDrawable();
                     Bitmap bmp = filtros.contrast(bitmapDrawable.getBitmap(), valueR);
                     imageView.setImageBitmap(bmp);
+                } else if (estado==6){
+                    //Modify RGB
+                    BitmapDrawable bitmapDrawable = (BitmapDrawable) imageView.getDrawable();
+                    Bitmap bmp = filtros.modifyRGB(bitmapDrawable.getBitmap(), valueR, valueG, valueB);
+                    imageView.setImageBitmap(bmp);
+                } else if (estado==7){
+                    //Gamma
                 }
             }
         });
@@ -86,6 +96,8 @@ public class MainActivity extends AppCompatActivity {
             if (i==1){
                 apply.setEnabled(false);
                 seekBarR.setEnabled(false);
+                seekBarG.setEnabled(false);
+                seekBarB.setEnabled(false);
                 setState(i);
                 BitmapDrawable bitmapDrawable=(BitmapDrawable) imageView.getDrawable();
                 Bitmap bmp=filtros.greyScale(bitmapDrawable.getBitmap());
@@ -93,6 +105,8 @@ public class MainActivity extends AppCompatActivity {
             } else if (i==2){
                 apply.setEnabled(false);
                 seekBarR.setEnabled(false);
+                seekBarG.setEnabled(false);
+                seekBarB.setEnabled(false);
                 setState(i);
                 BitmapDrawable bitmapDrawable=(BitmapDrawable) imageView.getDrawable();
                 Bitmap bmp=filtros.inverse(bitmapDrawable.getBitmap());
@@ -100,18 +114,32 @@ public class MainActivity extends AppCompatActivity {
             } else if (i==3){
                 apply.setEnabled(true);
                 seekBarR.setEnabled(true);
+                seekBarG.setEnabled(false);
+                seekBarB.setEnabled(false);
                 setState(i);
 
             } else if (i==4){
                 seekBarR.setEnabled(true);
+                seekBarG.setEnabled(false);
+                seekBarB.setEnabled(false);
                 apply.setEnabled(true);
                 setState(i);
             } else if (i==5){
                 seekBarR.setEnabled(true);
+                seekBarG.setEnabled(false);
+                seekBarB.setEnabled(false);
                 apply.setEnabled(true);
                 setState(i);
-            } else if (i==6){
+            } else if (i==6) {
                 seekBarR.setEnabled(true);
+                seekBarG.setEnabled(true);
+                seekBarB.setEnabled(true);
+                apply.setEnabled(true);
+                setState(i);
+            } else if (i==7){
+                seekBarR.setEnabled(true);
+                seekBarG.setEnabled(false);
+                seekBarB.setEnabled(false);
                 apply.setEnabled(true);
                 setState(i);
             }

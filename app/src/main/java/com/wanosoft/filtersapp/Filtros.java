@@ -217,11 +217,105 @@ public class Filtros {
         int b=0;
         int a=0;
 
-        if(brillo<-255){
-            brillo  = -10;
-        } else if (brillo>255){
-            brillo = 10;
+        for (int x=0;x<bitmap.getWidth();x++){
+            for(int y=0;y<bitmap.getHeight();y++){
+                // se obtiene el pixel segun las coordenadas
+                pixel=bitmap.getPixel(x,y);
+                //se obtienen los canales del pixel por medio de corrimiento
+                a=(pixel>>>24) & 0xff;
+                r=(pixel>>16) & 0xff;
+                g=(pixel>>8) & 0xff;
+                b=pixel & 0xff;
+                //se realiza la operacion por pixel
+                double teta = brillo/Math.PI*180;
+                r = (int) ((r-128)*Math.tan(teta)+180) >= 255 ? 255:(int) ((r-128)*Math.tan(teta)+180);
+                g = (int) ((g-128)*Math.tan(teta)+180) >= 255 ? 255:(int) ((g-128)*Math.tan(teta)+180);
+                b = (int) ((b-128)*Math.tan(teta)+180) >= 255 ? 255:(int) ((b-128)*Math.tan(teta)+180);
+
+                //limite de rango
+                if (r>=255){
+                    r=255;
+                } else if (r<=0) {
+                    r = 0;
+                }
+
+                if (g>=255){
+                    g=255;
+                } else if (g<=0) {
+                    g = 0;
+                }
+
+                if (b>=255){
+                    b=255;
+                } else if (b<=0) {
+                    b = 0;
+                }
+
+                //se vuelve a codificar el pixel
+                pixel=((a<<24)|(r<<16)|(g<<8)|b);
+                //se agrega el pixel en el bitmap destino
+                bmp.setPixel(x,y, pixel);
+            }
         }
+        //retorna el bitmap final para ser renderizado por imageView
+        return bmp;
+    }
+
+    public Bitmap modifyRGB(Bitmap bitmap, int seekR, int seekG, int seekB){
+        Bitmap bmp=Bitmap.createBitmap(bitmap.getWidth(),bitmap.getHeight(),bitmap.getConfig());
+
+        int pixel=0;
+        int r=0;
+        int g=0;
+        int b=0;
+        int a=0;
+
+        for (int x=0;x<bitmap.getWidth();x++){
+            for(int y=0;y<bitmap.getHeight();y++){
+                // se obtiene el pixel segun las coordenadas
+                pixel=bitmap.getPixel(x,y);
+                //se obtienen los canales del pixel por medio de corrimiento
+                a=(pixel>>>24) & 0xff;
+                r=(pixel>>16) & 0xff;
+                g=(pixel>>8) & 0xff;
+                b=pixel & 0xff;
+                //se realiza la operacion por pixel
+                r = r + seekR;
+                if(r>255){
+                    r = 255;
+                } if (r<0){
+                    r = 0;
+                }
+                g = g + seekG;
+                if(g>255){
+                    g = 255;
+                } if (g<0){
+                    g = 0;
+                }
+                b = b + seekB;
+                if(b>255){
+                    b = 255;
+                } if (b<0){
+                    b = 0;
+                }
+                //se vuelve a codificar el pixel
+                pixel=((a<<24)|(r<<16)|(g<<8)|b);
+                //se agrega el pixel en el bitmap destino
+                bmp.setPixel(x,y, pixel);
+            }
+        }
+        //retorna el bitmap final para ser renderizado por imageView
+        return bmp;
+    }
+
+    public Bitmap Gamma(Bitmap bitmap, int brillo){
+        Bitmap bmp=Bitmap.createBitmap(bitmap.getWidth(),bitmap.getHeight(),bitmap.getConfig());
+
+        int pixel=0;
+        int r=0;
+        int g=0;
+        int b=0;
+        int a=0;
 
         for (int x=0;x<bitmap.getWidth();x++){
             for(int y=0;y<bitmap.getHeight();y++){
@@ -237,6 +331,26 @@ public class Filtros {
                 r = (int) ((r-128)*Math.tan(teta)+180) >= 255 ? 255:(int) ((r-128)*Math.tan(teta)+180);
                 g = (int) ((g-128)*Math.tan(teta)+180) >= 255 ? 255:(int) ((g-128)*Math.tan(teta)+180);
                 b = (int) ((b-128)*Math.tan(teta)+180) >= 255 ? 255:(int) ((b-128)*Math.tan(teta)+180);
+
+                //limite de rango
+                if (r>=255){
+                    r=255;
+                } else if (r<=0) {
+                    r = 0;
+                }
+
+                if (g>=255){
+                    g=255;
+                } else if (g<=0) {
+                    g = 0;
+                }
+
+                if (b>=255){
+                    b=255;
+                } else if (b<=0) {
+                    b = 0;
+                }
+
                 //se vuelve a codificar el pixel
                 pixel=((a<<24)|(r<<16)|(g<<8)|b);
                 //se agrega el pixel en el bitmap destino

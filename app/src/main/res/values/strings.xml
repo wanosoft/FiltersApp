@@ -8,5 +8,6 @@
         <item>Edge Detect</item>
         <item>Contraste</item>
         <item>Modificar RGB</item>
+        <item>Gamma</item>
     </string-array>
 </resources>

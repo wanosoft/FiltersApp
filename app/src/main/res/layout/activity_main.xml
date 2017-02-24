@@ -25,30 +25,14 @@
             android:id="@+id/imagen"
             android:layout_marginTop="76dp"
             android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true" />
+            android:layout_centerHorizontal="true"
+            tools:ignore="ContentDescription" />
 
         <Spinner android:entries="@array/filtros"
             android:layout_width="match_parent"
             android:layout_height="43dp"
             android:id="@+id/spinner" />
     </RelativeLayout>
-
-    <SeekBar
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/seekBar"
-        android:layout_marginTop="26dp"
-        android:layout_below="@+id/relativeLayout"
-        android:layout_centerHorizontal="true"
-        android:max="254" />
-
-    <SeekBar
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/seekBar"
-        android:layout_alignParentStart="true"
-        android:id="@+id/seekBar2"
-        android:visibility="invisible"/>
 
     <Button
         android:text="Apply"
@@ -57,7 +41,8 @@
         android:layout_above="@+id/boton"
         android:enabled="false"
         android:layout_alignStart="@+id/boton"
-        android:id="@+id/apply" />
+        android:id="@+id/apply"
+        tools:ignore="HardcodedText" />
 
     <Button
         android:text="Reset"
@@ -65,14 +50,33 @@
         android:layout_height="wrap_content"
         android:id="@+id/boton"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        tools:ignore="HardcodedText" />
 
     <SeekBar
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/seekBar2"
-        android:layout_alignParentStart="true"
         android:id="@+id/seekBar3"
-        android:visibility="invisible"/>
+        android:max="100"
+        android:layout_above="@+id/apply"
+        android:layout_alignParentStart="true" />
+
+    <SeekBar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/seekBar2"
+        android:max="100"
+        android:layout_above="@+id/seekBar3"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="11dp" />
+
+    <SeekBar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/seekBar"
+        android:max="100"
+        android:layout_marginBottom="11dp"
+        android:layout_above="@+id/seekBar2"
+        android:layout_alignParentStart="true" />
 
 </RelativeLayout>
